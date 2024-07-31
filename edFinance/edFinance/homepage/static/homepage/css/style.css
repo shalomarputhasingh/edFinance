@@ -1,0 +1,81 @@
+body{
+    color: white;
+    background-color: #121212;
+    font-family: sans-serif;
+  }
+header {
+background-color: #000;
+color: white;
+}
+
+header .btn-warning {
+background-color: #f39c12;
+border-color: #f39c12;
+}
+
+header .btn-outline-warning {
+color: #f39c12;
+border-color: #f39c12;
+}
+
+section h2 {
+color: #f39c12;
+}
+
+.features .flex {
+color: #fff;
+}
+
+.features .text-orange-500 {
+color: #f39c12;
+}
+
+footer {
+background-color: #000;
+color: #fff;
+}
+
+.card.bg-dark {
+background-color: #1c1c1c;
+}
+
+.card-title {
+color: #f39c12;
+}
+
+.pricing-card {
+    border: 1px solid #f39c12;
+    border-radius: 8px;
+}
+
+.pricing-card .card-body {
+    background-color: #1c1c1c;
+}
+
+.pricing-card .card-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #f39c12;
+}
+
+.pricing-card .card-text {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.pricing-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.pricing-card ul li {
+    margin-bottom: 0.5rem;
+    color: #ccc;
+}
+
+.pricing-card .btn-warning {
+    background-color: #f39c12;
+    border-color: #f39c12;
+}
