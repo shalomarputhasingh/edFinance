@@ -13,10 +13,10 @@ def registerUser(request):
             auth_login(request, user)  # Use the correct login function
             return redirect('home')
     else:
+        # Handle the case where authentication fails
         registerForm = CustomUserCreationForm()
-    
-    context = {'register_form': registerForm}
-    return render(request, 'usersAuth/register_user.html', context)
+        context = {'register_form': registerForm}
+        return render(request, 'usersAuth/register_user.html', context)
 
 def loginUser(request):
     if request.method == "POST":

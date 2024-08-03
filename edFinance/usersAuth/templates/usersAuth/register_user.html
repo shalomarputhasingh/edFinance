@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Register -edFinance{% endblock %}
-{% block additional_css %}{% endblock %}
+{% block additional_css %}<link rel="stylesheet" href="{% static 'usersAuth/css/registerStyles.css' %}">{% endblock %}
 {% block content %}
-<form action="" method="post">
-    {% csrf_token %}
-    {{ register_form }}
-    <input type="submit" value="Submit">
-</form>
+<div class="registerUserForm">
+    <div class="register-form">
+        <h2 class="text-center">Register</h2>
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ register_form.as_p }}
+            <input type="submit" value="Submit" class="btn btn-primary"/>
+        </form>
+    </div>
+</div>
 {% endblock %}
