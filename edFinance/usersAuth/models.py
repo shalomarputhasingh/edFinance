@@ -22,15 +22,15 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser):
-    owner_name = models.CharField(max_length=100, blank=False, null=False)
-    username = models.CharField(max_length=30, unique=True, blank=False, null=False)
-    email = models.EmailField(unique=True, blank=False, null=False)
-    password = models.CharField(max_length=128, blank=False, null=False)
-    state = models.CharField(max_length=100, blank=False, null=False)
-    school_name = models.CharField(max_length=100, blank=False, null=False)
-    phone_number = models.CharField(max_length=20, blank=False, null=False)
+    owner_name = models.CharField(max_length=100)
+    username = models.CharField(max_length=30, unique=True,primary_key=True)
+    email = models.EmailField(unique=True)
+    state = models.CharField(max_length=100)
+    school_name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=20)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(null=True, blank=True)
 
     objects = UserManager()
 
