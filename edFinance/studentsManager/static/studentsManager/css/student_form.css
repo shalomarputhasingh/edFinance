@@ -1,0 +1,22 @@
+body {
+    background-color: black;  /* Dark background color */
+    color: #f8f9fa;  /* Light text color */
+}
+.card {
+    background-color: #495057;  /* Slightly lighter dark color for cards */
+}
+.form-control, .btn {
+    background-color: #6c757d;  /* Dark color for inputs and buttons */
+    color: #f8f9fa;  /* Light text color for inputs and buttons */
+}
+.form-control::placeholder {
+    color: #ced4da;  /* Light color for placeholder text */
+}
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}

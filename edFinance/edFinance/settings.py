@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'homepage.apps.HomepageConfig',
     'usersAuth.apps.UsersauthConfig',
+    'dashboardManager.apps.DashboardmanagerConfig',
+    'studentsManager.apps.StudentsmanagerConfig',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +116,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_URL = '/login/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

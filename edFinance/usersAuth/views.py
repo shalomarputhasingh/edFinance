@@ -11,7 +11,7 @@ def registerUser(request):
         if registerForm.is_valid():
             user = registerForm.save()
             auth_login(request, user)  # Use the correct login function
-            return redirect('home')
+            return redirect('dashboard')
     else:
         # Handle the case where authentication fails
         registerForm = CustomUserCreationForm()
@@ -25,7 +25,7 @@ def loginUser(request):
         user = authenticate(request, username=usernameEntered, password=passwordEntered)
         if user is not None:  # Check if authentication was successful
             auth_login(request, user)
-            return redirect('home')
+            return redirect('dashboard')
         else:
             # Handle the case where authentication fails
             context = {'error': 'Invalid username or password'}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Student - edFinance{% endblock %}
+{% block additional_css %} <link rel="stylesheet" href="{% static 'studentsManager/css/student_form.css' %}"> {% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Add Student</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="student_name">Student Name</label>
+                            <input type="text" id="student_name" name="student_name" class="form-control" required placeholder="Enter student name">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender" class="form-control" required>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                                <option value="O">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="student_class">Class</label>
+                            <input type="text" id="student_class" name="student_class" class="form-control" required placeholder="Enter class">
+                        </div>
+                        <div class="form-group">
+                            <label for="parents_phone_number">Parents/Guardians Phone Number</label>
+                            <input type="text" id="parents_phone_number" name="parents_phone_number" class="form-control" required placeholder="Enter phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" name="dob" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Add Student</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
