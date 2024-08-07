@@ -6,7 +6,7 @@ class Student(models.Model):
     student_name = models.CharField(max_length=255)
     gender = models.CharField(max_length=10, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')])
     student_class = models.CharField(max_length=50)
-    parents_phone_number = models.CharField(max_length=20)
+    parents_phone_number = models.CharField(max_length=20,null=True)
     dob = models.DateField()
     school = models.ForeignKey(User, on_delete=models.CASCADE, related_name='students')
     school_name = models.CharField(max_length=100, editable=False)  # Automatically populated

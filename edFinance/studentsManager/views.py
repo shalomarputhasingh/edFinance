@@ -1,4 +1,11 @@
+import pandas as pd
 from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
+import os
+from .models import Student
+from .forms import UploadFileForm
+from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from .models import Student
 
@@ -27,4 +34,43 @@ def add_student(request):
 @login_required
 def student_list(request):
     students = Student.objects.filter(school=request.user)
-    return render(request, 'studentsManager/students.html', {'students': students})
+    total_students = students.count()
+    context = {'students': students,'totalStudents':total_students}
+    return render(request, 'studentsManager/students.html', context )
+
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            uploaded_file = request.FILES['file']
+            fs = FileSystemStorage()
+            filename = fs.save(uploaded_file.name, uploaded_file)
+            file_path = os.path.join(settings.MEDIA_ROOT, filename)
+
+            # Extract data from the Excel file
+            data = pd.read_excel(file_path)
+            for index, row in data.iterrows():
+                dob = datetime.strptime(row['Data of Birth'], '%d-%m-%Y').date() if pd.notnull(row['Data of Birth']) else None
+                gender = 'M' if row['Gender'] == 'Male' else 'F' if row['Gender'] == 'Female' else 'O'
+
+                Student.objects.create(
+                    student_name=row['Name'],
+                    gender=gender,
+                    student_class=row['Class'],
+                    parents_phone_number=row['Phone Number'] if pd.notnull(row['Phone Number']) else None,
+                    dob=dob,
+                    school=request.user,  # Assuming the logged-in user is the school
+                )
+
+            # Delete the file after processing
+            fs.delete(filename)
+
+            return redirect('success')  # Redirect to a success page or another view
+    else:
+        form = UploadFileForm()
+    return render(request, 'studentsManager/upload.html', {'form': form})
+
+
+def successMessgae(request):
+    return render(request,'studentsManager/success.html')

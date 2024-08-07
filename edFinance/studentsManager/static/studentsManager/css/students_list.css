@@ -1,0 +1,33 @@
+body {
+    background-color: #343a40;  /* Dark background color */
+    color: #f8f9fa;  /* Light text color */
+    font-family: sans-serif;
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-group-text {
+    background-color: #000;
+    color: #fff;
+}
+
+.custom-select {
+    background-color: #000;
+    color: #fff;
+    border-color: #444;
+}
+
+.list-group-item {
+    background-color: #0000FF;
+    color: #fff;
+    padding-top: 5px;
+}
+
+.btn-warning {
+    background-color: #00FF00;
+    border-color: #00FF00;
+    color: #000;
+}
