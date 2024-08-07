@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 import pandas as pd
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
@@ -8,7 +9,7 @@ from .forms import UploadFileForm
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from .models import Student
-
+from .forms import editStudentForm
 @login_required
 def add_student(request):
     if request.method == 'POST':
@@ -38,7 +39,34 @@ def student_list(request):
     context = {'students': students,'totalStudents':total_students}
     return render(request, 'studentsManager/students.html', context )
 
+@login_required
+def editStudent(request,StudentId):
+    studentInfo = Student.objects.get(id_no=StudentId)
+    form = editStudentForm(instance=studentInfo)
+    if str(request.user) != str(studentInfo.school_username):
+        return HttpResponse('Your are not allowed here!!')
 
+    if request.method == 'POST':
+        studentInfo.student_name = request.POST.get("student_name")
+        studentInfo.gender = request.POST.get("gender")
+        studentInfo.student_class = request.POST.get("student_class")
+        studentInfo.parents_phone_number = request.POST.get("parents_phone_number")
+        studentInfo.dob = request.POST.get("dob")
+        studentInfo.save()
+        return redirect('students')
+
+    context = {'form': form,'student':studentInfo}
+    return render(request, 'studentsManager/editStudentInfo.html', context)
+
+@login_required
+def deleteStudent(request,StudentId):
+    studentInfo = Student.objects.get(id_no=StudentId)
+    if str(request.user) != str(studentInfo.school_username):
+        return HttpResponse('Your are not allowed here!!')
+    studentInfo.delete()
+    return redirect("students")
+
+@login_required
 def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
@@ -71,6 +99,6 @@ def upload_file(request):
         form = UploadFileForm()
     return render(request, 'studentsManager/upload.html', {'form': form})
 
-
+@login_required
 def successMessgae(request):
     return render(request,'studentsManager/success.html')

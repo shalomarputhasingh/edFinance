@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Student - edFinance{% endblock %}
+{% block additional_css %}<link rel="stylesheet" href="{% static 'studentsManager/css/editStudentInfo.css' %}" />{% endblock %}
+{% block content %}
+
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form }}
+    <a class="btn btn-primary" href="{% url 'students' %}">Cancel</a>
+    <a class="btn btn-warning" href="{% url 'deleteStudentInfo' student.id_no %}">Delete</a>
+    <input class="btn btn-success text-white" type="submit" value="Submit">
+</form>
+
+{% endblock %}
