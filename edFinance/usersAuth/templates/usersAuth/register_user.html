@@ -9,6 +9,7 @@
         <form method="post" action="">
             {% csrf_token %}
             {{ register_form.as_p }}
+            <span class="text-center">Already a User? <a style="color: #f39c12;text-decoration: underline;" href="{% url 'loginUser' %}">Login Now</a> </span>
             <input type="submit" value="Submit" class="btn btn-primary"/>
         </form>
     </div>
