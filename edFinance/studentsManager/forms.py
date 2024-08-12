@@ -8,4 +8,4 @@ class editStudentForm(ModelForm):
     class Meta:
         model = Student
         fields = '__all__'
-        exclude = ['id_no','school', 'school_name','school_username']
+        exclude = ['id_no','school', 'school_name','school_username','student_fees']

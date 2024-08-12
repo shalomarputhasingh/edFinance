@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'usersAuth.apps.UsersauthConfig',
     'dashboardManager.apps.DashboardmanagerConfig',
     'studentsManager.apps.StudentsmanagerConfig',
+    'billsManager.apps.BillsmanagerConfig',
 ]
 
 MIDDLEWARE = [

@@ -20,10 +20,12 @@ from homepage import urls as homeUrls
 from usersAuth import urls as userAuthUrls
 from dashboardManager import urls as dashboardUrls
 from studentsManager import urls as studentsUrls
+from billsManager import urls as billsUrls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include(homeUrls)),
     path('',include(userAuthUrls)),
     path('',include(dashboardUrls)),
     path('',include(studentsUrls)),
+    path('',include(billsUrls))
 ]

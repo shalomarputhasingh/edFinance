@@ -8,6 +8,7 @@ class Student(models.Model):
     student_class = models.CharField(max_length=50)
     parents_phone_number = models.CharField(max_length=20,null=True)
     dob = models.DateField()
+    student_fees = models.BooleanField(default=False)
     school = models.ForeignKey(User, on_delete=models.CASCADE, related_name='students')
     school_name = models.CharField(max_length=100, editable=False)  # Automatically populated
     school_username = models.CharField(max_length=30, editable=False)  # Automatically populated
