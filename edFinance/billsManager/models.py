@@ -5,6 +5,7 @@ class Fee(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=100, decimal_places=2)
     due_date = models.DateField()
+    fee_paid = models.DecimalField(default=0,max_digits=100, decimal_places=2)
     status = models.CharField(max_length=20, choices=[('paid', 'Paid'), ('pending', 'Pending')])
     
     def __str__(self):
