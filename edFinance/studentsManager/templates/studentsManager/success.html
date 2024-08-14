@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Success</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Success - edFinance{% endblock %}
+{% block additional_css %}
+<style>
+    body{
+        background-color: #343a40;
+color: white;
+    }
+</style>
+{% endblock %}
+{% block content %}
     <h1>File Uploaded Successfully!</h1>
-</body>
-</html>
+    <a href="{% url 'students' %}" class="btn btn-primary">View Students</a>
+{% endblock %}

@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Excel File</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Upload Student List - edFinance{% endblock %}
+{% block additional_css %}
+<style>
+    body{
+        background-color: #343a40;
+color: white;
+    }
+</style>
+{% endblock %}
+{% block content %}
     <h1>Upload Excel File</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Upload</button>
+        <a href="{% url 'students' %}" class="btn btn-primary">Go Back</a>
+        <button class="btn btn-success" type="submit">Upload</button>
     </form>
-</body>
-</html>
+{% endblock %}
