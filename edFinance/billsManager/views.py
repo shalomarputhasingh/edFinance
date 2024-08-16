@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from billsManager.models import Fee
 from studentsManager.models import Student
@@ -47,3 +48,22 @@ def createFees(request, pk):
         return render(request, 'billsManager/createFees.html', {'student': studentInfo})
     else:
         return redirect('students')
+    
+@login_required
+def feesLister(request):
+    students = Student.objects.filter(student_fees=True)
+    total_students = students.count()
+    context = {'students': students,'totalStudents':total_students}
+    return render(request,'billsManager/fees.html',context)
+
+@login_required
+def studentFeeDetails(request,pk):
+    studentInfo = Student.objects.get(id_no=int(pk))
+    feesInfo =  Fee.objects.get(student=studentInfo)
+    if str(request.user) != str(studentInfo.school_username):
+        return HttpResponse('Your are not allowed here!!')
+    totalFee = int(feesInfo.fee_paid) + int(feesInfo.amount)
+    feePaid = int(feesInfo.fee_paid)
+    feePending = int(feesInfo.amount)
+    context = {"student":studentInfo,"feesInfo":feesInfo,"totalFees":totalFee,"feePaid":feePaid,"feePending":feePending}
+    return render(request,'billsManager/studentFeeDetails.html',context)

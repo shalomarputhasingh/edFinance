@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Fee Details -
+edFinance{% endblock %} {% block additional_css %}
+<link rel="stylesheet" href="{% static 'billsManager/css/feeDetails.css' %}" />
+{% endblock %} {% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center">
+          <h3>Fees Info</h3>
+        </div>
+        <div class="card-body">
+            <span >Student Name: <b>{{ student.student_name }}</b> </span><br/>
+            <span >Total Fees: <b>{{ totalFees }}</b> </span><br/>
+            <span >Fees Paid: <b>{{ feePaid }}</b> </span><br/>
+            <span >Fees Pending: <b>{{ feePending }}</b> </span><br/>
+          <a class="btn btn-primary" href="{% url 'students' %}">Cancel</a>
+          <a class="btn btn-success" href="{% url 'editStudentInfo' student.id_no %}">About Student</a>
+          <a class="btn btn-warning" href="#">Bill</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
