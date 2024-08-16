@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from billsManager.models import Fee
 from studentsManager.models import Student
@@ -67,3 +68,26 @@ def studentFeeDetails(request,pk):
     feePending = int(feesInfo.amount)
     context = {"student":studentInfo,"feesInfo":feesInfo,"totalFees":totalFee,"feePaid":feePaid,"feePending":feePending}
     return render(request,'billsManager/studentFeeDetails.html',context)
+
+@login_required
+def studentBillingFees(request,pk):
+    studentInfo = Student.objects.get(id_no=int(pk))
+    feesInfo =  Fee.objects.get(student=studentInfo)
+    if str(request.user) != str(studentInfo.school_username):
+        return HttpResponse('Your are not allowed here!!')
+    #Handles the Billing for the Fees for that particular student
+    if request.method == "POST":
+        amountEntered = request.POST.get("amount_entered")
+        if(feesInfo.amount>=int(amountEntered)):
+            feesInfo.amount = feesInfo.amount - int(amountEntered)
+            feesInfo.fee_paid = feesInfo.fee_paid + int(amountEntered)
+            feesInfo.save()
+            messages.success(request, 'Payment Successful')
+        else:
+            messages.error(request, 'Payment Failed: Invaild Billing Amount')
+        return redirect("feeDetails",pk)
+    totalFee = int(feesInfo.fee_paid) + int(feesInfo.amount)
+    feePaid = int(feesInfo.fee_paid)
+    feePending = int(feesInfo.amount)
+    context = {"student":studentInfo,"feesInfo":feesInfo,"totalFees":totalFee,"feePaid":feePaid,"feePending":feePending}
+    return render(request,'billsManager/makingFeesPayment.html',context)

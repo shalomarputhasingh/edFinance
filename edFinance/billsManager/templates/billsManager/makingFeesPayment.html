@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Billing - edFinance{% endblock %}
+{% block additional_css %} <link rel="stylesheet" href="{% static 'billsManager/css/billingPage.css' %}"> {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header text-center">
+            <h3>Billing Info</h3>
+          </div>
+          <div class="card-body">
+              <span >Student Name: <b>{{ student.student_name }}</b> </span><br/>
+              <span >Total Fees: <b>{{ totalFees }}</b> </span><br/>
+              <span >Fees Paid: <b>{{ feePaid }}</b> </span><br/>
+              <span >Fees Pending: <b>{{ feePending }}</b> </span><br/>
+            <br/>
+            <form action="" method="post">
+                {% csrf_token %}
+                <label for="amount_entered">Amount</label>
+                <input type="number" name="amount_entered" id="amount_entered">
+                <br/>
+                <a class="btn btn-warning" href="{% url 'students' %}">Cancel</a>
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </form>
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

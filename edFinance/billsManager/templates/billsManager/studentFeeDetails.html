@@ -9,6 +9,13 @@ edFinance{% endblock %} {% block additional_css %}
         <div class="card-header text-center">
           <h3>Fees Info</h3>
         </div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
         <div class="card-body">
             <span >Student Name: <b>{{ student.student_name }}</b> </span><br/>
             <span >Total Fees: <b>{{ totalFees }}</b> </span><br/>
@@ -16,7 +23,7 @@ edFinance{% endblock %} {% block additional_css %}
             <span >Fees Pending: <b>{{ feePending }}</b> </span><br/>
           <a class="btn btn-primary" href="{% url 'students' %}">Cancel</a>
           <a class="btn btn-success" href="{% url 'editStudentInfo' student.id_no %}">About Student</a>
-          <a class="btn btn-warning" href="#">Bill</a>
+          <a class="btn btn-warning" href="{% url 'billingDetails' student.id_no %}">Bill</a>
         </div>
       </div>
     </div>
