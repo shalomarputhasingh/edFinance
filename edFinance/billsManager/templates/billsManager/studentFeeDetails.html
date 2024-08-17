@@ -24,6 +24,44 @@ edFinance{% endblock %} {% block additional_css %}
           <a class="btn btn-primary" href="{% url 'students' %}">Cancel</a>
           <a class="btn btn-success" href="{% url 'editStudentInfo' student.id_no %}">About Student</a>
           <a class="btn btn-warning" href="{% url 'billingDetails' student.id_no %}">Bill</a>
+          {% if student.student_fees == False %}
+          <a class="btn btn-warning" href="{% url 'addFees' student.id_no %}">Add Van Fees</a>
+          {% else %}
+          <a class="btn btn-warning" href="{% url 'feeDetails' student.id_no %}">Van Details</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center">
+          <h3>Previous Transactions</h3>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead class="thead">
+              <tr class="bg-primary">
+                <th scope="col">Amount</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for reports in transReports %}
+              <tr style="background-color: #f39c12;">
+                <th scope="row"><b>{{ reports.paid }}</b></th>
+                <td><b>{{ reports.typeFees }}</b></td>
+                <td><b>{{ reports.last_Paid }}</b></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+            
+          
         </div>
       </div>
     </div>

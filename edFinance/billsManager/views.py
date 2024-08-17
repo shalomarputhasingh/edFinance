@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from billsManager.models import Fee
 from studentsManager.models import Student
+from billsManager.models import transactionHistroy
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.shortcuts import get_object_or_404
@@ -11,7 +12,7 @@ def createFees(request, pk):
     studentInfo = get_object_or_404(Student, id_no=pk)  # Fetch the Student or return a 404 if not found
 
     if request.method == 'POST':
-        amountEntered = request.POST.get("fees-amount")
+        amountEntered = request.POST.get("fees-pendingAmount")
         dueDateEntered = request.POST.get("due-date")
         
         # Check if the required fields are present
@@ -25,8 +26,9 @@ def createFees(request, pk):
         try:
             fee = Fee(
                 student=studentInfo,  # Link the Student object directly
-                amount=amountEntered,
+                pendingAmount=amountEntered,
                 due_date=dueDateEntered,
+                total_fees = amountEntered,
                 status='pending'
             )
             fee.save()  # Save the Fee instance to the database
@@ -61,33 +63,44 @@ def feesLister(request):
 def studentFeeDetails(request,pk):
     studentInfo = Student.objects.get(id_no=int(pk))
     feesInfo =  Fee.objects.get(student=studentInfo)
+    transHistory = transactionHistroy.objects.filter(student = studentInfo).order_by('-last_Paid').values()
     if str(request.user) != str(studentInfo.school_username):
         return HttpResponse('Your are not allowed here!!')
-    totalFee = int(feesInfo.fee_paid) + int(feesInfo.amount)
+    totalFee = feesInfo.total_fees
     feePaid = int(feesInfo.fee_paid)
-    feePending = int(feesInfo.amount)
-    context = {"student":studentInfo,"feesInfo":feesInfo,"totalFees":totalFee,"feePaid":feePaid,"feePending":feePending}
+    feePending = int(feesInfo.pendingAmount)
+    context = {"student":studentInfo,"feesInfo":feesInfo,"totalFees":totalFee,"feePaid":feePaid,"feePending":feePending,"transReports":transHistory}
     return render(request,'billsManager/studentFeeDetails.html',context)
 
 @login_required
 def studentBillingFees(request,pk):
     studentInfo = Student.objects.get(id_no=int(pk))
     feesInfo =  Fee.objects.get(student=studentInfo)
+    
     if str(request.user) != str(studentInfo.school_username):
         return HttpResponse('Your are not allowed here!!')
     #Handles the Billing for the Fees for that particular student
     if request.method == "POST":
         amountEntered = request.POST.get("amount_entered")
-        if(feesInfo.amount>=int(amountEntered)):
-            feesInfo.amount = feesInfo.amount - int(amountEntered)
+        if(feesInfo.pendingAmount>=int(amountEntered)):
+            feesInfo.pendingAmount = feesInfo.pendingAmount - int(amountEntered)
             feesInfo.fee_paid = feesInfo.fee_paid + int(amountEntered)
+            if(feesInfo.pendingAmount == 0):
+                feesInfo.status = "paid"
             feesInfo.save()
+            transHistroy = transactionHistroy(
+                student = studentInfo,
+                pendingAmount = feesInfo.pendingAmount,
+                paid = amountEntered,
+                typeFees = "fees"
+            )
+            transHistroy.save()
             messages.success(request, 'Payment Successful')
         else:
-            messages.error(request, 'Payment Failed: Invaild Billing Amount')
+            messages.error(request, 'Payment Failed: Invaild Billing pendingAmount')
         return redirect("feeDetails",pk)
-    totalFee = int(feesInfo.fee_paid) + int(feesInfo.amount)
+    totalFee = int(feesInfo.fee_paid) + int(feesInfo.pendingAmount)
     feePaid = int(feesInfo.fee_paid)
-    feePending = int(feesInfo.amount)
+    feePending = int(feesInfo.pendingAmount)
     context = {"student":studentInfo,"feesInfo":feesInfo,"totalFees":totalFee,"feePaid":feePaid,"feePending":feePending}
     return render(request,'billsManager/makingFeesPayment.html',context)

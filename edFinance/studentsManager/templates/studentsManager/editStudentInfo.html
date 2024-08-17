@@ -21,7 +21,7 @@
                         {% if student.student_fees == False %}
                             <a class="btn btn-warning" href="{% url 'addFees' student.id_no %}">Add Fees</a>
                         {% else %}
-                            <a class="btn btn-warning" href="#">Fees Details</a>
+                            <a class="btn btn-warning" href="{% url 'feeDetails' student.id_no %}">Fees Details</a>
                         {% endif %}
                         <input class="btn btn-success text-white" type="submit" value="Submit">
                     </form>
