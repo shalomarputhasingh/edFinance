@@ -8,13 +8,13 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header text-center">
-                    <h3>Add Student Fees</h3>
+                    <h3>Add Student Van Fees</h3>
                 </div>
                 <div class="card-body">
                     <form method="POST">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label for="fees-amount">Total Fee</label>
+                            <label for="fees-amount">Total Van Fee</label>
                             <input type="number" id="fees-amount" name="fees-amount" class="form-control" required placeholder="Enter Fee Amount">
                         </div>
                         <div class="form-group">

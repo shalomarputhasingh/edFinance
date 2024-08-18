@@ -7,7 +7,7 @@ edFinance{% endblock %} {% block additional_css %}
     <div class="col-md-6">
       <div class="card">
         <div class="card-header text-center">
-          <h3>Fees Info</h3>
+          <h3>Van Fees Info</h3>
         </div>
         {% if messages %}
         <ul class="messages">
@@ -23,12 +23,8 @@ edFinance{% endblock %} {% block additional_css %}
             <span >Fees Pending: <b>{{ feePending }}</b> </span><br/>
           <a class="btn btn-primary" href="{% url 'students' %}">Cancel</a>
           <a class="btn btn-success" href="{% url 'editStudentInfo' student.id_no %}">About Student</a>
-          <a class="btn btn-warning" href="{% url 'billingDetails' student.id_no %}">Bill</a>
-          {% if feesInfo.bus_fees == False %}
-          <a class="btn btn-warning" href="{% url 'addBusFees' student.id_no %}">Add Van Fees</a>
-          {% else %}
-          <a class="btn btn-warning" href="{% url 'vanFeeDetails' student.id_no %}">Van Details</a>
-          {% endif %}
+          <a class="btn btn-warning" href="{% url 'billingVanDetails' student.id_no %}">Bill</a>
+          <a class="btn btn-warning" href="{% url 'feeDetails' student.id_no %}">View Fees Details</a>
         </div>
       </div>
     </div>

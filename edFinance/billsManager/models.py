@@ -8,12 +8,13 @@ class Fee(models.Model):
     due_date = models.DateField()
     fee_paid = models.DecimalField(default=0,max_digits=100, decimal_places=2)
     status = models.CharField(max_length=20, choices=[('paid', 'Paid'), ('pending', 'Pending')])
-    
+    bus_fees = models.BooleanField(default=False)
     def __str__(self):
         return f"{self.student.name} - {self.pendingAmount} due on {self.due_date}"
 
 class busFees(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    total_fees = models.DecimalField(max_digits=100,decimal_places=2)
     bus_amount = models.DecimalField(max_digits=100,decimal_places=2)
     due_date = models.DateField()
     last_Paid = models.DateTimeField(auto_now_add=True)
