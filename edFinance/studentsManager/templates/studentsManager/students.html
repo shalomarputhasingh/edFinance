@@ -16,17 +16,6 @@
           <span>Total Students: {{ totalStudents }}</span>
         </div>
         <div class="card-body">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="filterSelect">Filter By</label>
-            </div>
-            <select class="custom-select" id="filterSelect">
-              <option selected>Choose...</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-          </div>
           <div class="list-group">
             {% for student in students %}
             <a href="{% url 'editStudentInfo' student.id_no %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-primary text-white">

@@ -6,5 +6,6 @@ urlpatterns = [
     path('upload/', views.upload_file, name='upload_file'),
     path('success/', views.successMessgae, name='success'),
     path('editStudent/<str:StudentId>/',views.editStudent,name="editStudentInfo"),
-    path('deleteStudent/<str:StudentId>/',views.deleteStudent,name="deleteStudentInfo")
+    path('deleteStudent/<str:StudentId>/',views.deleteStudent,name="deleteStudentInfo"),
+    path('download-sample-excel/', views.download_sample_excel, name='download_sample_excel'),
 ]

@@ -102,3 +102,17 @@ def upload_file(request):
 @login_required
 def successMessgae(request):
     return render(request,'studentsManager/success.html')
+
+def download_sample_excel(request):
+    # Define the path to the Excel file
+    file_path = os.path.join(settings.BASE_DIR, 'studentsManager', 'files', 'sample.xlsx')
+
+    # Open the file and read its content
+    with open(file_path, 'rb') as f:
+        file_data = f.read()
+
+    # Create the HTTP response
+    response = HttpResponse(file_data, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = f'attachment; filename="sample_excel.xlsx"'
+
+    return response

@@ -10,6 +10,7 @@ color: white;
 {% endblock %}
 {% block content %}
     <h1>Upload Excel File</h1>
+    <span>Sample Excel File: <a class="btn btn-primary" href="{% url 'download_sample_excel' %}">Download Sample ExcelSheet</a></span>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
