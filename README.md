@@ -48,5 +48,3 @@ This software is proprietary, and usage requires permission from the author. If 
 ## Contact
 
 For inquiries or permission requests, please contact me on [Instagram](https://www.instagram.com/shalomarputhasingh).
-
-```
