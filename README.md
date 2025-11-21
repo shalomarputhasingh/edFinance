@@ -22,7 +22,7 @@ To use this software, ensure you have Python installed, then follow these steps:
 4. Create the necessary migrations for the `usersAuth` app:
 
    ```bash
-   python manage.py makemigrations usersAuth
+   python manage.py makemigrations usersAuth studentsManager dashboardManager billsManager
    ```
 
 5. Apply the migrations:
